@@ -11,17 +11,15 @@ resource "aws_ecs_task_definition" "app_dev" {
   container_definitions = jsonencode([
     {
       name      = "kito-app-container-dev"
-      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/kitoapp:f25f65a"
+      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/kitoapp:77fb891"
       cpu       = 0
       essential = true
 
       portMappings = [
         {
-          name          = "kitoapp-nginix"
           containerPort = 80
           hostPort      = 80
           protocol      = "tcp"
-          appProtocol   = "http"
         }
       ]
 
@@ -62,17 +60,15 @@ resource "aws_ecs_task_definition" "api_dev" {
   container_definitions = jsonencode([
     {
       name      = "kito-api-container-dev"
-      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/kitoapi:c6e1a9e-57"
+      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/kitoapi:6e8b88e-4"
       cpu       = 0
       essential = true
 
       portMappings = [
         {
-          name          = "kitoapi-container-8000-tcp"
           containerPort = 8000
           hostPort      = 8000
           protocol      = "tcp"
-          appProtocol   = "http"
         }
       ]
 
