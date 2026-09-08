@@ -1,0 +1,8 @@
+# Copy karke `terraform.tfvars` banayen (gitignored hai).
+# Asli values AWS pe already set hain, yahan se nikaal len:
+#   aws ecs describe-task-definition --task-definition kito-api-task-dev \
+#     --region eu-west-3 --query 'taskDefinition.containerDefinitions[0].environment'
+
+jwt_secret            = "<dev JWT_SECRET>"
+api_access_key_id     = "<dev Access_key_ID>"
+api_secret_access_key = "<dev Secret_access_key>"

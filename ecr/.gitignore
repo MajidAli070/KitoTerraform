@@ -1,0 +1,10 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfplan
+
+# Secrets — commit mat karna
+terraform.tfvars
+*.auto.tfvars
