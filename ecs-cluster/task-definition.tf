@@ -17,14 +17,16 @@ resource "aws_ecs_task_definition" "app_dev" {
 
       portMappings = [
         {
+          name          = "kitoapp-nginix"
           containerPort = 80
           hostPort      = 80
           protocol      = "tcp"
+          appProtocol   = "http"
         }
       ]
 
       environment = [
-        { name = "JWT_SECRET", value = var.jwt_secret }
+        { name = "JWT_SECRET", value = local.dev_env.JWT_SECRET }
       ]
 
       environmentFiles = []
@@ -66,16 +68,19 @@ resource "aws_ecs_task_definition" "api_dev" {
 
       portMappings = [
         {
+          name          = "kitoapi-container-8000-tcp"
           containerPort = 8000
           hostPort      = 8000
           protocol      = "tcp"
+          appProtocol   = "http"
         }
       ]
 
       environment = [
-        { name = "Secret_access_key", value = var.api_secret_access_key },
-        { name = "JWT_SECRET", value = var.jwt_secret },
-        { name = "Access_key_ID", value = var.api_access_key_id }
+        { name = "Secret_access_key", value = local.dev_env.Secret_access_key },
+        { name = "JWT_SECRET", value = local.dev_env.JWT_SECRET },
+        { name = "Access_key_ID", value = local.dev_env.Access_key_ID }
+
       ]
 
       mountPoints    = []

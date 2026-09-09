@@ -8,13 +8,13 @@ terraform {
     }
   }
 
-  # Remote state — bucket s3-bucket/ folder se banta hai
+  # Remote state
   backend "s3" {
     bucket       = "kito-tf-bucket"
     key          = "env/dev/ecs-cluster/terraform.tfstate"
     region       = "eu-west-3"
     encrypt      = true
-    use_lockfile = true # S3 native locking — DynamoDB ki zaroorat nahi
+    use_lockfile = true
   }
 }
 
