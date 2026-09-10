@@ -3,7 +3,7 @@ resource "aws_security_group" "api_sg" {
   description = "use for nginx deployment ecs"
   vpc_id      = "vpc-0f95db2f47b2c74be"
 
-  # Port 80 — dusre security groups se
+  # Port 80 — 
   ingress {
     from_port       = 80
     to_port         = 80
@@ -11,7 +11,7 @@ resource "aws_security_group" "api_sg" {
     security_groups = ["sg-09861acb87226fd27", "sg-056fea28228842966"]
   }
 
-  # Port 8000 — ek security group se
+  # Port 8000 — 
   ingress {
     from_port       = 8000
     to_port         = 8000
@@ -19,7 +19,7 @@ resource "aws_security_group" "api_sg" {
     security_groups = ["sg-09861acb87226fd27"]
   }
 
-  # Port 443 — ek SG se + VPC range se
+  # Port 443 
   ingress {
     from_port       = 443
     to_port         = 443

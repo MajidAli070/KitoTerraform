@@ -9,6 +9,7 @@ terraform {
   }
 
   # Remote state
+  # NOTE: backend block variables support nahi karta - sab hardcoded rehna chahiye
   backend "s3" {
     bucket       = "kito-tf-bucket"
     key          = "env/dev/ecs-cluster/terraform.tfstate"
@@ -20,5 +21,5 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "eu-west-3"
+  region = var.region
 }

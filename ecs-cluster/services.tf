@@ -30,7 +30,7 @@ resource "aws_ecs_service" "app_dev" {
 
   load_balancer {
     target_group_arn = "arn:aws:elasticloadbalancing:eu-west-3:071691732057:targetgroup/kito-app-dev-tg-ecs/8f2295c203b3006e"
-    container_name   = "kito-app-container-dev"
+    container_name   = var.app_container_name
     container_port   = 80
   }
 }
@@ -67,7 +67,7 @@ resource "aws_ecs_service" "api_dev" {
 
   load_balancer {
     target_group_arn = "arn:aws:elasticloadbalancing:eu-west-3:071691732057:targetgroup/kito-api-dev-tg-ecs/0f44dbbb956efe12"
-    container_name   = "kito-api-container-dev"
+    container_name   = var.api_container_name
     container_port   = 8000
   }
 }

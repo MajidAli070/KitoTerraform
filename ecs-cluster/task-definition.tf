@@ -1,6 +1,6 @@
 # ---------------- APP ----------------
 resource "aws_ecs_task_definition" "app_dev" {
-  family                   = "kito-app-task-dev"
+  family                   = var.app_task_family
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "512"
@@ -10,8 +10,8 @@ resource "aws_ecs_task_definition" "app_dev" {
 
   container_definitions = jsonencode([
     {
-      name      = "kito-app-container-dev"
-      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/kitoapp:77fb891"
+      name      = var.app_container_name
+      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/${var.app_image_repo}:${var.app_image_tag}"
       cpu       = 0
       essential = true
 
@@ -38,7 +38,7 @@ resource "aws_ecs_task_definition" "app_dev" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"         = "dev-logs"
+          "awslogs-group"         = var.log_group
           "awslogs-create-group"  = "true"
           "awslogs-region"        = "eu-west-3"
           "awslogs-stream-prefix" = "ecs"
@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "app_dev" {
 
 # ---------------- API ----------------
 resource "aws_ecs_task_definition" "api_dev" {
-  family                   = "kito-api-task-dev"
+  family                   = var.api_task_family
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
@@ -61,8 +61,8 @@ resource "aws_ecs_task_definition" "api_dev" {
 
   container_definitions = jsonencode([
     {
-      name      = "kito-api-container-dev"
-      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/kitoapi:6e8b88e-4"
+      name      = var.api_container_name
+      image     = "071691732057.dkr.ecr.eu-west-3.amazonaws.com/${var.api_image_repo}:${var.api_image_tag}"
       cpu       = 0
       essential = true
 
@@ -90,7 +90,7 @@ resource "aws_ecs_task_definition" "api_dev" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"         = "dev-logs"
+          "awslogs-group"         = var.log_group
           "mode"                  = "non-blocking"
           "awslogs-create-group"  = "true"
           "max-buffer-size"       = "25m"
