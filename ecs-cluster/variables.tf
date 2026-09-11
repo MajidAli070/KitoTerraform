@@ -60,3 +60,16 @@ variable "region" {
   type        = string
   default     = "eu-west-3"
 }
+
+# ---------------- IAM / SECRETS ----------------
+variable "execution_role_arn" {
+  description = "Task execution role — live :235/:9 secrets wala role use karte hain"
+  type        = string
+  default     = "arn:aws:iam::071691732057:role/ecsTaskExecutionRole-secrets"
+}
+
+variable "dev_secret_arn" {
+  description = "kito_dev_api secret ka full ARN — ECS secrets valueFrom ke liye"
+  type        = string
+  default     = "arn:aws:secretsmanager:eu-west-3:071691732057:secret:kito_dev_api-cH6qc9"
+}

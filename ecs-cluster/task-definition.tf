@@ -1,11 +1,14 @@
 # ---------------- APP ----------------
+# Live revision :235 se match karta hai.
+# Secrets ab plaintext environment mein nahi — ECS khud Secrets Manager se
+# runtime par inject karta hai (secrets/valueFrom).
 resource "aws_ecs_task_definition" "app_dev" {
   family                   = var.app_task_family
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "512"
   memory                   = "1024"
-  execution_role_arn       = aws_iam_role.ecs_execution.arn
+  execution_role_arn       = var.execution_role_arn
   task_role_arn            = aws_iam_role.ecs_execution.arn
 
   container_definitions = jsonencode([
@@ -25,15 +28,18 @@ resource "aws_ecs_task_definition" "app_dev" {
         }
       ]
 
-      environment = [
-        { name = "JWT_SECRET", value = local.dev_env.JWT_SECRET }
+      environment = []
+
+      secrets = [
+        {
+          name      = "JWT_SECRET"
+          valueFrom = "${var.dev_secret_arn}:JWT_SECRET::"
+        }
       ]
 
-      environmentFiles = []
-      mountPoints      = []
-      volumesFrom      = []
-      ulimits          = []
-      systemControls   = []
+      mountPoints    = []
+      volumesFrom    = []
+      systemControls = []
 
       logConfiguration = {
         logDriver = "awslogs"
@@ -43,20 +49,20 @@ resource "aws_ecs_task_definition" "app_dev" {
           "awslogs-region"        = "eu-west-3"
           "awslogs-stream-prefix" = "ecs"
         }
-        secretOptions = []
       }
     }
   ])
 }
 
 # ---------------- API ----------------
+# Live revision :9 se match karta hai.
 resource "aws_ecs_task_definition" "api_dev" {
   family                   = var.api_task_family
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "512"
-  execution_role_arn       = aws_iam_role.ecs_execution.arn
+  execution_role_arn       = var.execution_role_arn
   task_role_arn            = aws_iam_role.ecs_execution.arn
 
   container_definitions = jsonencode([
@@ -76,11 +82,21 @@ resource "aws_ecs_task_definition" "api_dev" {
         }
       ]
 
-      environment = [
-        { name = "Secret_access_key", value = local.dev_env.Secret_access_key },
-        { name = "JWT_SECRET", value = local.dev_env.JWT_SECRET },
-        { name = "Access_key_ID", value = local.dev_env.Access_key_ID }
+      environment = []
 
+      secrets = [
+        {
+          name      = "Secret_access_key"
+          valueFrom = "${var.dev_secret_arn}:Secret_access_key::"
+        },
+        {
+          name      = "JWT_SECRET"
+          valueFrom = "${var.dev_secret_arn}:JWT_SECRET::"
+        },
+        {
+          name      = "Access_key_ID"
+          valueFrom = "${var.dev_secret_arn}:Access_key_ID::"
+        }
       ]
 
       mountPoints    = []
@@ -97,7 +113,6 @@ resource "aws_ecs_task_definition" "api_dev" {
           "awslogs-region"        = "eu-west-3"
           "awslogs-stream-prefix" = "ecs"
         }
-        secretOptions = []
       }
     }
   ])

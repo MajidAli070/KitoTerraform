@@ -29,12 +29,12 @@ import {
 
 import {
   to = aws_ecs_task_definition.app_dev
-  id = "arn:aws:ecs:eu-west-3:071691732057:task-definition/kito-app-task-dev:231"
+  id = "arn:aws:ecs:eu-west-3:071691732057:task-definition/kito-app-task-dev:235"
 }
 
 import {
   to = aws_ecs_task_definition.api_dev
-  id = "arn:aws:ecs:eu-west-3:071691732057:task-definition/kito-api-task-dev:8"
+  id = "arn:aws:ecs:eu-west-3:071691732057:task-definition/kito-api-task-dev:9"
 }
 
 import {
