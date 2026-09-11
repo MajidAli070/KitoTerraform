@@ -1,12 +1,3 @@
-# =========================================================
-# Existing AWS resources -> Terraform state (DEV only)
-# Terraform 1.5+ import blocks: `terraform plan` se preview
-# milta hai state ko chhue baghair.
-#
-# Import kamyab hone ke baad ye file delete ki ja sakti hai.
-# Demo/prod ke liye baad mein alag env directory banegi.
-# =========================================================
-
 import {
   to = aws_ecs_cluster.main
   id = "kito-health-app"

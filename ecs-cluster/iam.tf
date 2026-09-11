@@ -1,4 +1,3 @@
-# Trust policy — ECS is role ko use kar sakta hai
 data "aws_iam_policy_document" "ecs_task_trust" {
   statement {
     effect  = "Allow"
@@ -11,7 +10,7 @@ data "aws_iam_policy_document" "ecs_task_trust" {
   }
 }
 
-# Existing execution role (import hoga)
+# Existing execution role import 
 resource "aws_iam_role" "ecs_execution" {
   name               = "ecsTaskExecutionRole"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_trust.json

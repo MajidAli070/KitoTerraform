@@ -1,7 +1,3 @@
-# ---------------- APP ----------------
-# Live revision :235 se match karta hai.
-# Secrets ab plaintext environment mein nahi — ECS khud Secrets Manager se
-# runtime par inject karta hai (secrets/valueFrom).
 resource "aws_ecs_task_definition" "app_dev" {
   family                   = var.app_task_family
   requires_compatibilities = ["FARGATE"]
@@ -55,7 +51,6 @@ resource "aws_ecs_task_definition" "app_dev" {
 }
 
 # ---------------- API ----------------
-# Live revision :9 se match karta hai.
 resource "aws_ecs_task_definition" "api_dev" {
   family                   = var.api_task_family
   requires_compatibilities = ["FARGATE"]
