@@ -63,13 +63,50 @@ variable "region" {
 
 # ---------------- IAM / SECRETS ----------------
 variable "execution_role_arn" {
-  description = "Task execution role — live :235/:9 secrets wala role use karte hain"
+  description = "Task execution role - the secrets-enabled role used by live :235/:9"
   type        = string
   default     = "arn:aws:iam::071691732057:role/ecsTaskExecutionRole-secrets"
 }
 
 variable "dev_secret_arn" {
-  description = "kito_dev_api secret ka full ARN — ECS secrets valueFrom ke liye"
+  description = "Full ARN of the kito_dev_api secret - used by ECS secrets valueFrom"
   type        = string
   default     = "arn:aws:secretsmanager:eu-west-3:071691732057:secret:kito_dev_api-cH6qc9"
+}
+
+# ---------------- ALB ----------------
+variable "https_listener_arn" {
+  description = "kito-app-alb HTTPS :443 listener - shared, not managed here"
+  type        = string
+  default     = "arn:aws:elasticloadbalancing:eu-west-3:071691732057:listener/app/kito-app-alb/72f7d49b45b0a0dc/062745382e4cc22a"
+}
+
+variable "vpc_id" {
+  description = "KitoHealth shared VPC - dev, demo and prod all live in it"
+  type        = string
+  default     = "vpc-0f95db2f47b2c74be"
+}
+
+variable "app_tg_name" {
+  description = "App target group name - ForceNew, must match live exactly"
+  type        = string
+  default     = "kito-app-dev-tg-ecs"
+}
+
+variable "app_tg_port" {
+  description = "App target group port"
+  type        = number
+  default     = 80
+}
+
+variable "api_tg_name" {
+  description = "API target group name - ForceNew, must match live exactly"
+  type        = string
+  default     = "kito-api-dev-tg-ecs"
+}
+
+variable "api_tg_port" {
+  description = "API target group port - TG is on 80, container is on 8000"
+  type        = number
+  default     = 80
 }
