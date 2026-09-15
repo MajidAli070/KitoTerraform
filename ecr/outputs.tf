@@ -1,10 +1,10 @@
 output "app_repository_name" {
-  description = "App ECR repository ka naam"
+  description = "App ECR repository name"
   value       = aws_ecr_repository.app.name
 }
 
 output "api_repository_name" {
-  description = "API ECR repository ka naam"
+  description = "API ECR repository name"
   value       = aws_ecr_repository.api.name
 }
 

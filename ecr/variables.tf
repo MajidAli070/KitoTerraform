@@ -11,18 +11,18 @@ variable "api_repo_name" {
 }
 
 variable "image_tag_mutability" {
-  description = "Tag mutability — MUTABLE ya IMMUTABLE"
+  description = "Tag mutability - MUTABLE or IMMUTABLE"
   type        = string
   default     = "MUTABLE"
 
   validation {
     condition     = contains(["MUTABLE", "IMMUTABLE"], var.image_tag_mutability)
-    error_message = "MUTABLE ya IMMUTABLE hona chahiye."
+    error_message = "Must be either MUTABLE or IMMUTABLE."
   }
 }
 
 variable "scan_on_push" {
-  description = "Push par image vulnerability scan"
+  description = "Scan the image for vulnerabilities on push"
   type        = bool
   default     = false
 }

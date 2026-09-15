@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "tfstate" {
   bucket = "kito-tf-bucket"
 
-  # Galti se state ka bucket delete na ho jaye
+  # Guard against accidentally deleting the state bucket
   lifecycle {
     prevent_destroy = true
   }
@@ -20,7 +20,7 @@ resource "aws_s3_bucket_versioning" "tfstate" {
   }
 }
 
-# Encryption — state file mein plaintext secrets hote hain
+# Encryption - the state file contains plaintext secrets
 resource "aws_s3_bucket_server_side_encryption_configuration" "tfstate" {
   bucket = aws_s3_bucket.tfstate.id
 
@@ -32,7 +32,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tfstate" {
   }
 }
 
-# Public access poora block
+# Block all public access
 resource "aws_s3_bucket_public_access_block" "tfstate" {
   bucket = aws_s3_bucket.tfstate.id
 
